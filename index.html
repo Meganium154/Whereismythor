@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <style>
+    :root {
+      --background: #0c0d10;
+      --card: #17191f;
+      --card-border: #2b2e36;
+      --text: #f4f4f5;
+      --muted: #a7a9b0;
+      --input: #22252d;
+      --button: #7557ff;
+      --button-hover: #6547ee;
+      --error: #ffb4b4;
+      --success: #b9f6ca;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .card {
+      padding: 30px;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      margin: 0 0 28px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: 700;
+    }
+
+    select,
+    input {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      outline: none;
+      background: var(--input);
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: var(--button);
+    }
+
+    button {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 24px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--button);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--button-hover);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    #status {
+      min-height: 24px;
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    #status.error {
+      color: var(--error);
+    }
+
+    .result {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .result.visible {
+      display: block;
+    }
+
+    .result h2 {
+      margin: 0 0 18px;
+      font-size: 21px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .result-row:last-of-type {
+      border-bottom: 0;
+    }
+
+    .result-label {
+      color: var(--muted);
+    }
+
+    .result-value {
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .notice {
+      margin: 18px 0 0;
+      padding: 12px;
+      border-radius: 9px;
+      background: rgba(117, 87, 255, 0.12);
+      color: var(--success);
+      line-height: 1.45;
+    }
+
+    .disclaimer {
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    #disclaimerOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(5, 6, 9, 0.94);
+    }
+
+    #disclaimerBox {
+      width: 100%;
+      max-width: 720px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 32px;
+      border: 1px solid #343741;
+      border-radius: 18px;
+      background: #17191f;
+      color: #f4f4f5;
+      line-height: 1.6;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    #disclaimerBox h2 {
+      margin-top: 0;
+      line-height: 1.25;
+    }
+
+    #disclaimerBox ul {
+      padding-left: 22px;
+    }
+
+    .disclaimerButtons {
+      display: flex;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    #disclaimerBox .acceptButton,
+    #disclaimerBox .leaveButton {
+      width: auto;
+      flex: 1;
+      min-height: 50px;
+      margin: 0;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #disclaimerBox .acceptButton {
+      border: none;
+      background: #7557ff;
+      color: white;
+    }
+
+    #disclaimerBox .acceptButton:hover {
+      background: #6547ee;
+    }
+
+    #disclaimerBox .leaveButton {
+      border: 1px solid #565a66;
+      background: transparent;
+      color: white;
+    }
+
+    #disclaimerBox .leaveButton:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 12px;
+      }
+
+      .card {
+        padding: 22px 18px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .result-row {
+        display: block;
+      }
+
+      .result-value {
+        margin-top: 5px;
+        text-align: left;
+      }
+
+      #disclaimerBox {
+        padding: 24px 20px;
+      }
+
+      .disclaimerButtons {
+        flex-direction: column;
+      }
+
+      #disclaimerBox .acceptButton,
+      #disclaimerBox .leaveButton {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="disclaimerOverlay">
+    <div id="disclaimerBox">
+      <h2>Welcome to the Unofficial AYN Thor Shipping Estimator</h2>
+
+      <p>
+        This website is an independent community project created by an
+        AYN Thor enthusiast.
+      </p>
+
+      <p>
+        I am <strong>not employed by, affiliated with, sponsored by, or
+        endorsed by AYN Technologies, DHL, 4PX, or any of their partners.</strong>
+      </p>
+
+      <p>
+        I noticed that people were frequently asking when their Thor might
+        ship, so I created this tool using publicly available shipping
+        information and community-reported data.
+      </p>
+
+      <p>
+        All dates provided by this tool are estimates only. They are not
+        official shipping or delivery dates, and actual results may differ.
+      </p>
+
+      <p>
+        By clicking <strong>I Understand</strong>, you acknowledge that:
+      </p>
+
+      <ul>
+        <li>This is an unofficial fan-made project.</li>
+        <li>All shipping and delivery dates are estimates only.</li>
+        <li>No guarantee is made regarding the accuracy of the estimates.</li>
+        <li>You use the information provided at your own discretion.</li>
+        <li>Official order information must come directly from AYN.</li>
+      </ul>
+
+      <div class="disclaimerButtons">
+        <button
+          type="button"
+          class="acceptButton"
+          onclick="acceptDisclaimer()"
+        >
+          I Understand
+        </button>
+
+        <button
+          type="button"
+          class="leaveButton"
+          onclick="leaveSite()"
+        >
+          Leave Site
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="card">
+      <h1>When Will My Thor Ship?</h1>
+
+      <p class="subtitle">
+        Select your AYN Thor model and enter your order number
+        for an estimated shipping and delivery date.
+      </p>
+
+      <form id="shippingForm">
+        <label for="model">Thor model</label>
+
+        <select id="model" required>
+          <option value="">Select your model</option>
+
+      
+        </select>
+
+        <label for="orderNumber">Order number</label>
+
+        <input
+          id="orderNumber"
+          type="text"
+          inputmode="numeric"
+          autocomplete="off"
+          placeholder="Example: 2575"
+          required
+        >
+
+        <button id="submitButton" type="submit">
+          Estimate My Shipping
+        </button>
+      </form>
+
+      <div id="status" aria-live="polite"></div>
+
+      <section id="result" class="result" aria-live="polite">
+        <h2>Your estimated timeline</h2>
+
+        <div class="result-row">
+          <span class="result-label">Estimated ship date</span>
+          <span id="shipDate" class="result-value"></span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Estimated DHL delivery</span>
+          <span id="dhlDate" class="result-value"></span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Estimated 4PX delivery</span>
+          <span id="fourPxDate" class="result-value"></span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Orders ahead of yours</span>
+          <span id="ordersAhead" class="result-value"></span>
+        </div>
+
+        <div class="result-row">
+          <span class="result-label">Current estimated rate</span>
+          <span id="averageRate" class="result-value"></span>
+        </div>
+
+        <p id="notice" class="notice"></p>
+      </section>
+
+      <p class="disclaimer">
+        This is an unofficial estimate based on observed shipping
+        activity. It is not a guarantee from AYN, DHL, or 4PX.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('shippingForm');
+    const button = document.getElementById('submitButton');
+    const statusBox = document.getElementById('status');
+    const resultBox = document.getElementById('result');
+
+    const API_URL =
+  'https://script.google.com/macros/s/AKfycbzXfnpKed8FaJrghrjzPoKUu-0XbDXDT77lBtAoCk8E-rSWGXp9X2D59fqtgrpeClyHGA/exec';
+
+loadModels();
+
+function loadModels() {
+  fetch(API_URL + '?action=models')
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById('model');
+
+      data.models.forEach(model => {
+        const option = document.createElement('option');
+        option.value = model;
+        option.textContent = model;
+        select.appendChild(option);
+      });
+    })
+    .catch(() => {
+      statusBox.className = 'error';
+      statusBox.textContent = 'Unable to load Thor models.';
+    });
+}
+
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const model = document.getElementById('model').value;
+      const orderNumber = document.getElementById('orderNumber').value;
+
+      resultBox.classList.remove('visible');
+      statusBox.className = '';
+      statusBox.textContent = 'Calculating your estimate...';
+
+      button.disabled = true;
+      button.textContent = 'Calculating...';
+
+      const API_URL =
+  'https://script.google.com/macros/s/AKfycbzXfnpKed8FaJrghrjzPoKUu-0XbDXDT77lBtAoCk8E-rSWGXp9X2D59fqtgrpeClyHGA/exec';
+
+const requestUrl =
+  API_URL +
+  '?action=estimate' +
+  '&model=' + encodeURIComponent(model) +
+  '&orderNumber=' + encodeURIComponent(orderNumber);
+
+fetch(requestUrl)
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error('The server returned an error.');
+    }
+
+    return response.json();
+  })
+  .then(showResult)
+  .catch(showUnexpectedError);
+
+    function showResult(data) {
+      resetButton();
+
+      if (!data || !data.success) {
+        showError(
+          data && data.message
+            ? data.message
+            : 'The estimate could not be calculated.'
+        );
+        return;
+      }
+
+      statusBox.textContent = '';
+
+      document.getElementById('shipDate').textContent = data.shipDate;
+      document.getElementById('dhlDate').textContent = data.dhlDate;
+      document.getElementById('fourPxDate').textContent = data.fourPxDate;
+      document.getElementById('ordersAhead').textContent =
+        Number(data.ordersAhead).toLocaleString();
+      document.getElementById('averageRate').textContent =
+        Number(data.averagePerDay).toLocaleString() + ' units per day';
+
+      const notice = document.getElementById('notice');
+
+      if (data.alreadyReached) {
+        notice.textContent =
+          'Your order number is at or below the latest reported ' +
+          'shipped order number. Check your email or AYN account, ' +
+          'because it may already be processing or shipped.';
+      } else {
+        notice.textContent =
+          'At the current reported rate, your order is estimated ' +
+          'to ship in about ' +
+          data.daysUntilShipping +
+          ' day' +
+          (data.daysUntilShipping === 1 ? '' : 's') +
+          '.';
+      }
+
+      resultBox.classList.add('visible');
+    }
+
+    function showUnexpectedError(error) {
+      resetButton();
+
+      showError(
+        error && error.message
+          ? error.message
+          : 'An unexpected error occurred.'
+      );
+    }
+
+    function showError(message) {
+      statusBox.className = 'error';
+      statusBox.textContent = message;
+      resultBox.classList.remove('visible');
+    }
+
+    function resetButton() {
+      button.disabled = false;
+      button.textContent = 'Estimate My Shipping';
+    }
+});
+
+    function acceptDisclaimer() {
+      const overlay = document.getElementById('disclaimerOverlay');
+
+      if (overlay) {
+        overlay.style.display = 'none';
+      }
+    }
+
+    function leaveSite() {
+      window.top.location.href = 'https://www.google.com/';
+    }
+  </script>
+</body>
+</html>
