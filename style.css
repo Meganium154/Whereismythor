@@ -774,3 +774,29 @@ input:focus, select:focus {
     height: 46px;
   }
 }
+
+
+/* Buy Me a Coffee links */
+.bmc-nav-link {
+  margin-left: 6px;
+  background: #ffdd00 !important;
+  color: #151515 !important;
+  font-weight: 850 !important;
+}
+
+.bmc-nav-link:hover {
+  background: #f0cf00 !important;
+  color: #151515 !important;
+}
+
+.bmc-footer-link {
+  color: #ffdd00 !important;
+  font-weight: 850 !important;
+}
+
+@media (max-width: 680px) {
+  .bmc-nav-link {
+    margin-left: 0;
+    text-align: center;
+  }
+}

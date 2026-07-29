@@ -9,6 +9,25 @@ const resultBox = document.getElementById("result");
 const disclaimerOverlay = document.getElementById("disclaimerOverlay");
 const acceptDisclaimerButton = document.getElementById("acceptDisclaimer");
 
+
+orderInput.addEventListener("input", () => {
+  const digitsOnly = orderInput.value.replace(/\D/g, "").slice(0, 4);
+  if (orderInput.value !== digitsOnly) {
+    orderInput.value = digitsOnly;
+  }
+});
+
+orderInput.addEventListener("paste", (event) => {
+  event.preventDefault();
+  const pasted = (event.clipboardData || window.clipboardData)
+    .getData("text")
+    .replace(/\D/g, "")
+    .slice(0, 4);
+  orderInput.value = pasted;
+  orderInput.dispatchEvent(new Event("input", { bubbles: true }));
+});
+
+
 function setStatus(message, type = "") {
   statusBox.textContent = message;
   statusBox.className = type ? `status ${type}` : "status";
@@ -39,7 +58,7 @@ function showResult(data) {
   document.getElementById("ordersAhead").textContent =
     (Number(data.ordersAhead || 0) * 1000).toLocaleString();
   document.getElementById("averageRate").textContent =
-    `${Math.round(Number(data.averagePerDay || 0)).toLocaleString()} units shipped per day`;
+    `${Math.round(Number(data.averagePerDay || 0) * 1000).toLocaleString()} units shipped per day`;
 
   const notice = document.getElementById("notice");
   if (data.alreadyReached) {
