@@ -800,3 +800,53 @@ input:focus, select:focus {
     text-align: center;
   }
 }
+
+
+/* Inline header brand: no external logo image required */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.brand-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+}
+
+.brand-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-text {
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 850;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+}
+
+.brand-text strong {
+  color: #9d72ff;
+}
+
+.brand-logo {
+  display: none !important;
+}
+
+@media (max-width: 680px) {
+  .brand-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brand-text {
+    font-size: 15px;
+  }
+}
