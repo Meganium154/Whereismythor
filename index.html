@@ -1,319 +1,201 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>When Will My AYN Thor Ship? | Where Is My Thor?</title><link href="style.css" rel="stylesheet"/>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7701563724435136"></script></head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Unofficial AYN Thor shipping estimator using observed shipping activity and community-reported data.">
+  <title>When Will My AYN Thor Ship? | Where Is My Thor?</title>
+  <link rel="stylesheet" href="style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7701563724435136"
+     crossorigin="anonymous"></script>
+</head>
 <body>
+  
 <header class="site-header">
-<nav aria-label="Main navigation" class="nav">
-<a class="brand" href="index.html">Where Is My Thor?</a>
-<div class="nav-links">
-<a aria-current="page" href="index.html">Home</a>
+  <div class="nav-wrap">
+    <a class="brand" href="index.html" aria-label="Where Is My Thor home">
+      <span class="brand-mark" aria-hidden="true">T</span>
+      <span>Where Is My Thor?</span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">
+      Menu
+    </button>
+    <nav id="main-nav" class="nav-links" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
 <a href="about.html">About</a>
 <a href="privacy.html">Privacy</a>
 <a href="terms.html">Terms</a>
 <a href="contact.html">Contact</a>
-</div>
-</nav>
+    </nav>
+  </div>
 </header>
-<div id="disclaimerOverlay">
-<div id="disclaimerBox">
-<h2>Welcome to the Unofficial AYN Thor Shipping Estimator</h2>
-<p>
-        This website is an independent community project created by an
-        AYN Thor enthusiast.
-      </p>
-<p>
-        I am <strong>not employed by, affiliated with, sponsored by, or
-        endorsed by AYN Technologies, DHL, 4PX, or any of their partners.</strong>
-</p>
-<p>
-        I noticed that people were frequently asking when their Thor might
-        ship, so I created this tool using publicly available shipping
-        information and community-reported data.
-      </p>
-<p>
-        All dates provided by this tool are estimates only. They are not
-        official shipping or delivery dates, and actual results may differ.
-      </p>
-<p>
-        By clicking <strong>I Understand</strong>, you acknowledge that:
-      </p>
-<ul>
-<li>This is an unofficial fan-made project.</li>
-<li>All shipping and delivery dates are estimates only.</li>
-<li>No guarantee is made regarding the accuracy of the estimates.</li>
-<li>You use the information provided at your own discretion.</li>
-<li>Official order information must come directly from AYN.</li>
-</ul>
-<div class="disclaimerButtons">
-<button class="acceptButton" onclick="acceptDisclaimer()" type="button">
-          I Understand
-        </button>
-<button class="leaveButton" onclick="leaveSite()" type="button">
-          Leave Site
-        </button>
-</div>
-</div>
-</div>
-<div class="page-shell">
-<div class="content-grid">
 
-<main class="container">
-<section class="card">
-<h1>When Will My Thor Ship?</h1>
-<p class="subtitle">
-        Select your AYN Thor model and enter your order number
-        for an estimated shipping and delivery date.
-      </p>
-<form id="shippingForm">
-<label for="model">Thor model</label>
-<select id="model" required="">
-<option value="">Select your model</option>
-</select>
-<label for="orderNumber">Order number</label>
-<input autocomplete="off" id="orderNumber" inputmode="numeric" placeholder="Example: 2575" required="" type="text"/>
-<button id="submitButton" type="submit">
-          Estimate My Shipping
+  
+<div class="disclaimer-overlay" id="disclaimerOverlay" role="dialog" aria-modal="true" aria-labelledby="disclaimerTitle">
+  <div class="disclaimer-modal">
+    <p class="eyebrow">Before you continue</p>
+    <h2 id="disclaimerTitle">This is an unofficial estimate</h2>
+    <p>Where Is My Thor is an independent community project. It is not affiliated with AYN Technologies, DHL, 4PX, or their partners.</p>
+    <p>Shipping and delivery dates are estimates based on public information and community-reported activity. Official order information must come directly from AYN.</p>
+    <div class="modal-actions">
+      <button class="primary-button" id="acceptDisclaimer" type="button">I understand</button>
+      <a class="secondary-button" href="https://www.google.com/">Leave site</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Unofficial AYN Thor shipping estimator</p>
+      <h1>Get a clearer idea of when your Thor may ship.</h1>
+      <p class="hero-text">Choose your model and enter the numerical portion of your order number. The estimator compares it with observed shipping activity and returns an estimated timeline.</p>
+      <div class="trust-row">
+        <span>Independent</span>
+        <span>Community informed</span>
+        <span>No login required</span>
+      </div>
+    </div>
+
+    <section class="estimator-card" aria-labelledby="estimatorTitle">
+      <div class="card-heading">
+        <p class="eyebrow">Shipping estimate</p>
+        <h2 id="estimatorTitle">When will my Thor ship?</h2>
+      </div>
+
+      <form id="shippingForm" novalidate>
+        <div class="field">
+          <label for="model">Thor model</label>
+          <select id="model" name="model" required>
+            <option value="">Loading models…</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="orderNumber">Order number</label>
+          <input id="orderNumber" name="orderNumber" type="text" inputmode="numeric"
+                 autocomplete="off" placeholder="Example: 2575" required>
+          <p class="field-help">Enter only the numerical portion of the order number.</p>
+        </div>
+
+        <button class="primary-button full-width" id="submitButton" type="submit">
+          Estimate my shipping
         </button>
-</form>
-<div aria-live="polite" id="status"></div>
-<section aria-live="polite" class="result" id="result">
-<h2>Your estimated timeline</h2>
-<div class="result-row">
-<span class="result-label">Estimated ship date</span>
-<span class="result-value" id="shipDate"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Estimated DHL delivery</span>
-<span class="result-value" id="dhlDate"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Estimated 4PX delivery</span>
-<span class="result-value" id="fourPxDate"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Orders ahead of yours</span>
-<span class="result-value" id="ordersAhead"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Current estimated rate</span>
-<span class="result-value" id="averageRate"></span>
-</div>
-<p class="notice" id="notice"></p>
-</section>
-<p class="disclaimer">
-        This is an unofficial estimate based on observed shipping
-        activity. It is not a guarantee from AYN, DHL, or 4PX.
-      </p>
-</section>
+      </form>
 
+      <div class="status" id="status" aria-live="polite"></div>
 
-<section aria-labelledby="how-it-works-title" class="info-section">
-<div class="info-card">
-<h2 id="how-it-works-title">How the estimator works</h2>
-<p>The tool compares your selected Thor model and order number with observed shipping activity and community-reported batches. It then estimates when your order may ship and shows separate delivery windows for DHL and 4PX.</p>
-<p>The calculation updates as shipping patterns change. It does not access AYN's private order system and cannot see the official status of an individual order.</p>
-</div>
-<div class="info-grid">
-<article class="info-card">
-<h2>What you need</h2>
-<p>Choose the exact Thor model you ordered and enter the numerical portion of your order number. The estimate is only as useful as the information entered.</p>
-</article>
-<article class="info-card">
-<h2>What can change the date</h2>
-<p>Production speed, model availability, holidays, customs, carrier capacity, and changes to AYN's shipping priorities can all move the final date.</p>
-</article>
-</div>
-<div class="info-card faq-card">
-<h2>Frequently asked questions</h2>
-<details>
-<summary>Is this an official AYN tracking tool?</summary>
-<p>No. Where Is My Thor is an independent community project and is not affiliated with or endorsed by AYN Technologies.</p>
-</details>
-<details>
-<summary>Does the site store my order number?</summary>
-<p>The order number is sent to the estimator service to calculate a result. This website does not intentionally use it to identify you or access your AYN account.</p>
-</details>
-<details>
-<summary>Why are DHL and 4PX dates different?</summary>
-<p>The carriers typically have different transit times and delivery networks, so the estimator shows a separate window for each one.</p>
-</details>
-<details>
-<summary>What should I do if the estimate is wrong?</summary>
-<p>Use official AYN communications as the source of truth. You can also send a correction or bug report through the Contact page.</p>
-</details>
-</div>
-</section>
-<section class="support-box">
-<h2>Support Where Is My Thor</h2>
-<p>If this estimator helped you, consider buying me a coffee. It helps cover hosting costs and lets me keep improving the site.</p>
-<a class="coffee-button" href="https://buymeacoffee.com/whereismythor" rel="noopener noreferrer" target="_blank">
-    ☕ Buy Me a Coffee
-  </a>
-</section>
+      <section class="results" id="result" aria-live="polite" aria-labelledby="resultTitle">
+        <div class="results-heading">
+          <p class="eyebrow">Estimated timeline</p>
+          <h3 id="resultTitle">Your result</h3>
+        </div>
+        <dl class="result-list">
+          <div><dt>Estimated ship date</dt><dd id="shipDate"></dd></div>
+          <div><dt>DHL delivery</dt><dd id="dhlDate"></dd></div>
+          <div><dt>4PX delivery</dt><dd id="fourPxDate"></dd></div>
+          <div><dt>Orders ahead</dt><dd id="ordersAhead"></dd></div>
+          <div><dt>Estimated rate</dt><dd id="averageRate"></dd></div>
+        </dl>
+        <p class="result-notice" id="notice"></p>
+      </section>
+
+      <p class="fine-print">Estimates are not guarantees. Check your AYN account and email for official updates.</p>
+    </section>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">How it works</p>
+      <h2>A useful estimate without pretending it is official.</h2>
+      <p>The calculator uses the latest model list and shipping data returned by the project’s estimator service.</p>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <span class="feature-number">01</span>
+        <h3>Select your exact model</h3>
+        <p>Shipping activity can differ by configuration, so choosing the right model matters.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-number">02</span>
+        <h3>Enter your order number</h3>
+        <p>The estimator compares your position with the latest reported shipping progress.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-number">03</span>
+        <h3>Review the timeline</h3>
+        <p>You get estimated ship, DHL delivery, and 4PX delivery dates in one place.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="split-section">
+    <div>
+      <p class="eyebrow">Important context</p>
+      <h2>What can move the estimate?</h2>
+    </div>
+    <div class="check-list">
+      <p>Production pace and model availability</p>
+      <p>Holidays and factory scheduling</p>
+      <p>Customs processing and carrier capacity</p>
+      <p>Changes to AYN shipping priorities</p>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="section-heading compact">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions people usually ask</h2>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>Is this an official AYN tracking tool?</summary>
+        <p>No. It is an independent community project and cannot access AYN’s private order system.</p>
+      </details>
+      <details>
+        <summary>Does the site store my order number?</summary>
+        <p>The number is sent to the estimator service to calculate a result. It is not used to sign in to or access your AYN account.</p>
+      </details>
+      <details>
+        <summary>Why are DHL and 4PX dates different?</summary>
+        <p>The carriers use different transit networks and normally have different delivery times.</p>
+      </details>
+      <details>
+        <summary>What should I trust if the estimate differs from AYN?</summary>
+        <p>Always trust official communications from AYN over this estimator.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="support-banner">
+    <div>
+      <p class="eyebrow">Support the project</p>
+      <h2>Help keep Where Is My Thor running.</h2>
+      <p>Support helps cover the small costs of maintaining and improving the estimator.</p>
+    </div>
+    <a class="coffee-button" href="https://buymeacoffee.com/whereismythor" target="_blank" rel="noopener noreferrer">☕ Buy me a coffee</a>
+  </section>
 </main>
-</div>
-</div>
+
+  
 <footer class="site-footer">
-<div class="footer-links">
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="privacy.html">Privacy Policy</a>
-<a href="terms.html">Terms of Use</a>
-<a href="contact.html">Contact</a>
-</div>
-<p>© 2026 Where Is My Thor. Unofficial community project.</p>
+  <div class="footer-inner">
+    <div>
+      <a class="footer-brand" href="index.html">Where Is My Thor?</a>
+      <p>Unofficial community shipping estimator for AYN Thor orders.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+  <p class="copyright">© 2026 Where Is My Thor. Not affiliated with AYN Technologies.</p>
 </footer>
-<script>
-    const form = document.getElementById('shippingForm');
-    const button = document.getElementById('submitButton');
-    const statusBox = document.getElementById('status');
-    const resultBox = document.getElementById('result');
 
-    const API_URL =
-  'https://script.google.com/macros/s/AKfycbzXfnpKed8FaJrghrjzPoKUu-0XbDXDT77lBtAoCk8E-rSWGXp9X2D59fqtgrpeClyHGA/exec';
-
-loadModels();
-
-function loadModels() {
-  fetch(API_URL + '?action=models')
-    .then(response => response.json())
-    .then(data => {
-      const select = document.getElementById('model');
-
-      data.models.forEach(model => {
-        const option = document.createElement('option');
-        option.value = model;
-        option.textContent = model;
-        select.appendChild(option);
-      });
-    })
-    .catch(() => {
-      statusBox.className = 'error';
-      statusBox.textContent = 'Unable to load Thor models.';
-    });
-}
-
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const model = document.getElementById('model').value;
-      const orderNumber = document.getElementById('orderNumber').value;
-
-      resultBox.classList.remove('visible');
-      statusBox.className = '';
-      statusBox.textContent = 'Calculating your estimate...';
-
-      button.disabled = true;
-      button.textContent = 'Calculating...';
-
-      const API_URL =
-  'https://script.google.com/macros/s/AKfycbzXfnpKed8FaJrghrjzPoKUu-0XbDXDT77lBtAoCk8E-rSWGXp9X2D59fqtgrpeClyHGA/exec';
-
-const requestUrl =
-  API_URL +
-  '?action=estimate' +
-  '&model=' + encodeURIComponent(model) +
-  '&orderNumber=' + encodeURIComponent(orderNumber);
-
-fetch(requestUrl)
-  .then(function(response) {
-    if (!response.ok) {
-      throw new Error('The server returned an error.');
-    }
-
-    return response.json();
-  })
-  .then(showResult)
-  .catch(showUnexpectedError);
-
-    });
-
-    function showResult(data) {
-      resetButton();
-
-      if (!data || !data.success) {
-        showError(
-          data && data.message
-            ? data.message
-            : 'The estimate could not be calculated.'
-        );
-        return;
-      }
-
-      statusBox.textContent = '';
-
-      document.getElementById('shipDate').textContent = data.shipDate;
-      document.getElementById('dhlDate').textContent = data.dhlDate;
-      document.getElementById('fourPxDate').textContent = data.fourPxDate;
-      document.getElementById('ordersAhead').textContent =
-        Number(data.ordersAhead).toLocaleString();
-      document.getElementById('averageRate').textContent =
-        Number(data.averagePerDay).toLocaleString() + ' units per day';
-
-      const notice = document.getElementById('notice');
-
-      if (data.alreadyReached) {
-        notice.textContent =
-          'Your order number is at or below the latest reported ' +
-          'shipped order number. Check your email or AYN account, ' +
-          'because it may already be processing or shipped.';
-      } else {
-        notice.textContent =
-          'At the current reported rate, your order is estimated ' +
-          'to ship in about ' +
-          data.daysUntilShipping +
-          ' day' +
-          (data.daysUntilShipping === 1 ? '' : 's') +
-          '.';
-      }
-
-      resultBox.classList.add('visible');
-    }
-
-    function showUnexpectedError(error) {
-      resetButton();
-
-      showError(
-        error && error.message
-          ? error.message
-          : 'An unexpected error occurred.'
-      );
-    }
-
-    function showError(message) {
-      statusBox.className = 'error';
-      statusBox.textContent = message;
-      resultBox.classList.remove('visible');
-    }
-
-    function resetButton() {
-      button.disabled = false;
-      button.textContent = 'Estimate My Shipping';
-    }
-
-    function acceptDisclaimer() {
-      const overlay = document.getElementById('disclaimerOverlay');
-
-      if (overlay) {
-        overlay.style.display = 'none';
-        sessionStorage.setItem('thorDisclaimerAccepted', 'true');
-      }
-    }
-
-    if (sessionStorage.getItem('thorDisclaimerAccepted') === 'true') {
-      const overlay = document.getElementById('disclaimerOverlay');
-      if (overlay) {
-        overlay.style.display = 'none';
-      }
-    }
-
-    function leaveSite() {
-      window.top.location.href = 'https://www.google.com/';
-    }
-  </script></body>
+  <script src="site.js"></script>
+  <script src="app.js"></script>
+</body>
 </html>
