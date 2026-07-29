@@ -720,3 +720,33 @@ input:focus, select:focus {
     width: min(100% - 28px, 1180px);
   }
 }
+
+
+/* Centered interior pages */
+.page-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-intro,
+.prose-card {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-intro {
+  max-width: 900px;
+}
+
+.prose-card {
+  max-width: 900px;
+}
+
+@media (min-width: 901px) {
+  .page-intro,
+  .prose-card {
+    transform: none;
+  }
+}
