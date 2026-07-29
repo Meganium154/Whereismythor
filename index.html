@@ -2,9 +2,7 @@
 
 <html lang="en">
 <head>
-
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-
 <title>When Will My AYN Thor Ship? | Where Is My Thor?</title><link href="style.css" rel="stylesheet"/></head>
 <body>
 <header class="site-header">
@@ -19,7 +17,6 @@
 </div>
 </nav>
 </header>
-
 <div id="disclaimerOverlay">
 <div id="disclaimerBox">
 <h2>Welcome to the Unofficial AYN Thor Shipping Estimator</h2>
@@ -61,6 +58,81 @@
 </div>
 </div>
 
+<div class="page-shell">
+<div class="content-grid">
+<aside aria-label="Advertisement" class="ad-rail">
+<div class="ad-placeholder">Google AdSense<br/>left rail</div>
+</aside>
+<main class="container">
+<section class="card">
+<h1>When Will My Thor Ship?</h1>
+<p class="subtitle">
+        Select your AYN Thor model and enter your order number
+        for an estimated shipping and delivery date.
+      </p>
+<form id="shippingForm">
+<label for="model">Thor model</label>
+<select id="model" required="">
+<option value="">Select your model</option>
+</select>
+<label for="orderNumber">Order number</label>
+<input autocomplete="off" id="orderNumber" inputmode="numeric" placeholder="Example: 2575" required="" type="text"/>
+<button id="submitButton" type="submit">
+          Estimate My Shipping
+        </button>
+</form>
+<div aria-live="polite" id="status"></div>
+<section aria-live="polite" class="result" id="result">
+<h2>Your estimated timeline</h2>
+<div class="result-row">
+<span class="result-label">Estimated ship date</span>
+<span class="result-value" id="shipDate"></span>
+</div>
+<div class="result-row">
+<span class="result-label">Estimated DHL delivery</span>
+<span class="result-value" id="dhlDate"></span>
+</div>
+<div class="result-row">
+<span class="result-label">Estimated 4PX delivery</span>
+<span class="result-value" id="fourPxDate"></span>
+</div>
+<div class="result-row">
+<span class="result-label">Orders ahead of yours</span>
+<span class="result-value" id="ordersAhead"></span>
+</div>
+<div class="result-row">
+<span class="result-label">Current estimated rate</span>
+<span class="result-value" id="averageRate"></span>
+</div>
+<p class="notice" id="notice"></p>
+</section>
+<p class="disclaimer">
+        This is an unofficial estimate based on observed shipping
+        activity. It is not a guarantee from AYN, DHL, or 4PX.
+      </p>
+</section>
+<section class="support-box">
+<h2>Support Where Is My Thor</h2>
+<p>If this estimator helped you, consider buying me a coffee. It helps cover hosting costs and lets me keep improving the site.</p>
+<a class="coffee-button" href="https://buymeacoffee.com/whereismythor" rel="noopener noreferrer" target="_blank">
+    ☕ Buy Me a Coffee
+  </a>
+</section>
+</main><aside aria-label="Advertisement" class="ad-rail">
+<div class="ad-placeholder">Google AdSense<br/>right rail</div>
+</aside>
+</div>
+</div>
+<footer class="site-footer">
+<div class="footer-links">
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="privacy.html">Privacy Policy</a>
+<a href="terms.html">Terms of Use</a>
+<a href="contact.html">Contact</a>
+</div>
+<p>© 2026 Where Is My Thor. Unofficial community project.</p>
+</footer>
 <script>
     const form = document.getElementById('shippingForm');
     const button = document.getElementById('submitButton');
@@ -195,89 +267,19 @@ fetch(requestUrl)
 
       if (overlay) {
         overlay.style.display = 'none';
+        sessionStorage.setItem('thorDisclaimerAccepted', 'true');
+      }
+    }
+
+    if (sessionStorage.getItem('thorDisclaimerAccepted') === 'true') {
+      const overlay = document.getElementById('disclaimerOverlay');
+      if (overlay) {
+        overlay.style.display = 'none';
       }
     }
 
     function leaveSite() {
       window.top.location.href = 'https://www.google.com/';
     }
-  </script>
-
-<div class="page-shell">
-<div class="content-grid">
-<aside aria-label="Advertisement" class="ad-rail">
-<div class="ad-placeholder">Google AdSense<br/>left rail</div>
-</aside>
-<main class="container">
-<section class="card">
-<h1>When Will My Thor Ship?</h1>
-<p class="subtitle">
-        Select your AYN Thor model and enter your order number
-        for an estimated shipping and delivery date.
-      </p>
-<form id="shippingForm">
-<label for="model">Thor model</label>
-<select id="model" required="">
-<option value="">Select your model</option>
-</select>
-<label for="orderNumber">Order number</label>
-<input autocomplete="off" id="orderNumber" inputmode="numeric" placeholder="Example: 2575" required="" type="text"/>
-<button id="submitButton" type="submit">
-          Estimate My Shipping
-        </button>
-</form>
-<div aria-live="polite" id="status"></div>
-<section aria-live="polite" class="result" id="result">
-<h2>Your estimated timeline</h2>
-<div class="result-row">
-<span class="result-label">Estimated ship date</span>
-<span class="result-value" id="shipDate"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Estimated DHL delivery</span>
-<span class="result-value" id="dhlDate"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Estimated 4PX delivery</span>
-<span class="result-value" id="fourPxDate"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Orders ahead of yours</span>
-<span class="result-value" id="ordersAhead"></span>
-</div>
-<div class="result-row">
-<span class="result-label">Current estimated rate</span>
-<span class="result-value" id="averageRate"></span>
-</div>
-<p class="notice" id="notice"></p>
-</section>
-<p class="disclaimer">
-        This is an unofficial estimate based on observed shipping
-        activity. It is not a guarantee from AYN, DHL, or 4PX.
-      </p>
-</section>
-<section class="support-box">
-<h2>Support Where Is My Thor</h2>
-<p>If this estimator helped you, consider buying me a coffee. It helps cover hosting costs and lets me keep improving the site.</p>
-<a class="coffee-button" href="https://buymeacoffee.com/whereismythor" rel="noopener noreferrer" target="_blank">
-    ☕ Buy Me a Coffee
-  </a>
-</section>
-</main><aside aria-label="Advertisement" class="ad-rail">
-<div class="ad-placeholder">Google AdSense<br/>right rail</div>
-</aside>
-</div>
-</div>
-
-<footer class="site-footer">
-<div class="footer-links">
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="privacy.html">Privacy Policy</a>
-<a href="terms.html">Terms of Use</a>
-<a href="contact.html">Contact</a>
-</div>
-<p>© 2026 Where Is My Thor. Unofficial community project.</p>
-</footer>
-</body>
+  </script></body>
 </html>
