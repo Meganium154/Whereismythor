@@ -37,9 +37,9 @@ function showResult(data) {
   document.getElementById("dhlDate").textContent = data.dhlDate || "Not available";
   document.getElementById("fourPxDate").textContent = data.fourPxDate || "Not available";
   document.getElementById("ordersAhead").textContent =
-    Number(data.ordersAhead || 0).toLocaleString();
+    (Number(data.ordersAhead || 0) * 1000).toLocaleString();
   document.getElementById("averageRate").textContent =
-    `${Number(data.averagePerDay || 0).toLocaleString()} units per day`;
+    `${Math.round(Number(data.averagePerDay || 0)).toLocaleString()} units shipped per day`;
 
   const notice = document.getElementById("notice");
   if (data.alreadyReached) {
@@ -90,8 +90,8 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (!/^\d+$/.test(orderNumber)) {
-    showError("Enter a valid numerical order number.");
+  if (!/^\d{4}$/.test(orderNumber)) {
+    showError("Enter exactly the first 4 digits of your order number.");
     orderInput.focus();
     return;
   }

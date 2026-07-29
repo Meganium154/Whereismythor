@@ -750,3 +750,27 @@ input:focus, select:focus {
     transform: none;
   }
 }
+
+
+/* Branded header logo */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.brand-logo {
+  display: block;
+  width: clamp(190px, 18vw, 250px);
+  height: 54px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (max-width: 680px) {
+  .brand-logo {
+    width: 178px;
+    height: 46px;
+  }
+}
